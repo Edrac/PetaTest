@@ -10,7 +10,9 @@ namespace PetaTest.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type1 { get; set; }
+#nullable enable
         public string? Type2 { get; set; }
+#nullable disable
         public int Total { get; set; }
         public int HP { get; set; }
         public int Attack { get; set; }
