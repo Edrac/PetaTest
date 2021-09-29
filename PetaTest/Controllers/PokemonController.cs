@@ -19,6 +19,7 @@ namespace PetaTest.Controllers
         public PokemonController(PokemonContext context)
         {
             _context = context;
+            SeedData.Initialize(_context);
         }
 
         // GET: api/Pokemon
@@ -29,11 +30,11 @@ namespace PetaTest.Controllers
             return await _context.PokemonList.Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
-        // GET: api/Pokemon/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Pokemon>> GetPokemon(int id)
+        // GET: api/Pokemon/Bulbasaur
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Pokemon>> GetPokemon(string name)
         {
-            var pokemon = await _context.PokemonList.FindAsync(id);
+            var pokemon = await _context.PokemonList.FindAsync(name);
 
             if (pokemon == null)
             {
