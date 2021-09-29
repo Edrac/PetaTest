@@ -44,13 +44,13 @@ namespace PetaTest.Controllers
             return pokemon;
         }
 
-        // PUT: api/Pokemon/5
+        // PUT: api/Pokemon/Bulbasaur
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPokemon(int id, Pokemon pokemon)
+        [HttpPut("{name}")]
+        public async Task<IActionResult> PutPokemon(string name, Pokemon pokemon)
         {
-            if (id != pokemon.Id)
+            if (name != pokemon.Name)
             {
                 return BadRequest();
             }
@@ -63,7 +63,7 @@ namespace PetaTest.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PokemonExists(id))
+                if (!PokemonExists(name))
                 {
                     return NotFound();
                 }
@@ -104,9 +104,9 @@ namespace PetaTest.Controllers
             return pokemon;
         }
 
-        private bool PokemonExists(int id)
+        private bool PokemonExists(string name)
         {
-            return _context.PokemonList.Any(e => e.Id == id);
+            return _context.PokemonList.Any(e => e.Name == name);
         }
     }
 }
