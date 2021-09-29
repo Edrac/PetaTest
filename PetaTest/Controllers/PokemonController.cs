@@ -85,7 +85,7 @@ namespace PetaTest.Controllers
             _context.PokemonList.Add(pokemon);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPokemon", new { id = pokemon.Id }, pokemon);
+            return CreatedAtAction("GetPokemon", new { name = pokemon.Name }, pokemon);
         }
 
         // DELETE: api/Pokemon/5
