@@ -19,7 +19,6 @@ namespace PetaTest.Controllers
         public PokemonController(PokemonContext context)
         {
             _context = context;
-            SeedData.Initialize(_context);
         }
 
         // GET: api/Pokemon
@@ -88,11 +87,11 @@ namespace PetaTest.Controllers
             return CreatedAtAction("GetPokemon", new { name = pokemon.Name }, pokemon);
         }
 
-        // DELETE: api/Pokemon/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Pokemon>> DeletePokemon(int id)
+        // DELETE: api/Pokemon/Bulbasaur
+        [HttpDelete("{name}")]
+        public async Task<ActionResult<Pokemon>> DeletePokemon(string name)
         {
-            var pokemon = await _context.PokemonList.FindAsync(id);
+            var pokemon = await _context.PokemonList.FindAsync(name);
             if (pokemon == null)
             {
                 return NotFound();
