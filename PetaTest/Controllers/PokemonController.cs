@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using PetaTest.Db;
 using PetaTest.Models;
 
@@ -16,16 +15,11 @@ namespace PetaTest.Controllers
     public class PokemonController : ControllerBase
     {
         private readonly PokemonContext _context;
-        private readonly ILogger<PokemonController> _logger;
-
-        public PokemonController(ILogger<PokemonController> logger)
-        {
-            _logger = logger;
-        }
 
         public PokemonController(PokemonContext context)
         {
             _context = context;
+            //SeedData.Initialize(_context);
         }
 
         // GET: api/Pokemon
