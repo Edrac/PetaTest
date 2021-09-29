@@ -22,10 +22,11 @@ namespace PetaTest.Controllers
         }
 
         // GET: api/Pokemon
+        // GET: api/Pokemon?pageSize=40&page=2
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pokemon>>> GetPokemonList()
+        public async Task<ActionResult<IEnumerable<Pokemon>>> GetPokemonList([FromQuery] int pageSize = 20, [FromQuery] int page = 0)
         {
-            return await _context.PokemonList.ToListAsync();
+            return await _context.PokemonList.Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
         // GET: api/Pokemon/5
