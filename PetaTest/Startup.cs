@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PetaTest.Db;
+using PetaTest.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace PetaTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PokemonContext>(opt => opt.UseInMemoryDatabase("PokemonList"));
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddControllers();
         }
 
@@ -49,6 +51,13 @@ namespace PetaTest
             {
                 endpoints.MapControllers();
             });
+
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
+                dbInitializer.SeedData();
+            }
         }
     }
 }
