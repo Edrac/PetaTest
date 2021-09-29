@@ -19,7 +19,6 @@ namespace PetaTest.Controllers
         public PokemonController(PokemonContext context)
         {
             _context = context;
-            //SeedData.Initialize(_context);
         }
 
         // GET: api/Pokemon
